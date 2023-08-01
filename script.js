@@ -39,12 +39,11 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  console.log($(input).find('description').val(localStorage.getItem(realInput + ' boxText')))
   for (i = 9; i < timeBlock.length + 9; i++) {
     var input = "#" + i
     var realInput = i.toString()
     if (localStorage.getItem(realInput + ' boxText') != null) {
-      $(input).find('description').val(localStorage.getItem(realInput + ' boxText'))
+      $(input).find('.description').val(localStorage.getItem(realInput + ' boxText'))
     }
   }
 
