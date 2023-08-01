@@ -17,8 +17,8 @@ $(function () {
   var timeBlock = $('.time-block')
   timeBlock.on('click', '.saveBtn', function() {
     var boxText = $(this).closest('.time-block').find('.description').val()
-    console.log(boxText)
-    localStorage.setItem('boxText', boxText)
+    
+    localStorage.setItem($(this).closest('.time-block').attr('id') + ' boxText', boxText)
   })
 
   // TODO: Add code to apply the past, present, or future class to each time
@@ -26,16 +26,10 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-
-
-// console.log($('#9').attr('id') > dayjs().format('H'))
-//  console.log(9 > dayjs().format('H'))
-//  console.log('true' > 15)
-
   timeBlock.each(function() {
-    if ($(this).attr('id') < dayjs().format('H')) {
+    if (parseInt($(this).attr('id')) < dayjs().format('H')) {
       $(this).addClass('past')
-    } else if ($(this).attr('id') > dayjs().format('H')) {
+    } else if (parseInt($(this).attr('id')) > dayjs().format('H')) {
       $(this).addClass('future')
     } else {
       $(this).addClass('present')
@@ -45,7 +39,14 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  
+  console.log($(input).find('description').val(localStorage.getItem(realInput + ' boxText')))
+  for (i = 9; i < timeBlock.length + 9; i++) {
+    var input = "#" + i
+    var realInput = i.toString()
+    if (localStorage.getItem(realInput + ' boxText') != null) {
+      $(input).find('description').val(localStorage.getItem(realInput + ' boxText'))
+    }
+  }
 
   // TODO: Add code to display the current date in the header of the page.
   window.onload = setInterval(function() {
